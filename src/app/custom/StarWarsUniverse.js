@@ -42,8 +42,11 @@ export default class StarWarsUniverse extends EventEmitter {
                 )
             });
 
-            console.log(this.species)
-            console.log(this.speciesCount)
+        console.log(this.species)
+        console.log(this.speciesCount)
+        this.emit(StarWarsUniverse.events.MAX_SPECIES_REACHED);
+
+
 
 
         // this.emit(Species.events.SPECIES_CREATED);
