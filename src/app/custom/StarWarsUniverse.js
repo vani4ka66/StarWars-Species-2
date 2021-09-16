@@ -3,7 +3,6 @@ import Species from "./Species";
 
 export default class StarWarsUniverse extends EventEmitter {
     constructor(maxSpecies = 10) {
-
         super()
 
         this.species = [];
@@ -22,29 +21,32 @@ export default class StarWarsUniverse extends EventEmitter {
         return this.species.length;
     }
 
-    createSpecies() {
+    async createSpecies() {
 
         //should fetch the current species
 
         //create a new instance of the Species class
 
-        fetch('https://swapi.boom.dev/api/species')
+        await fetch('https://swapi.boom.dev/api/species')
             .then(response => response.json())
             .then(data => {
 
                 data.results.map(i => {
                         let a = new Species(i.name, i.classification, i.url)
 
-                        this.species.push(a);
+                        if (!this.species.find(o => o.name === i.name)) {
+                            this.species.push(i);
+                        }
                     }
 
                 )
             });
 
             console.log(this.species)
+            console.log(this.speciesCount)
 
 
-        this.emit(Species.events.SPECIES_CREATED);
+        // this.emit(Species.events.SPECIES_CREATED);
 
         // Species.init();
 
